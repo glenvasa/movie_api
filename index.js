@@ -54,8 +54,49 @@ app.get('/', (req, res) => {
   res.send('Welcome to myFlix!');
 });
 
+// Get a list of data about all movies
 app.get('/movies', (req, res) => {
-  res.json(topTenMovies);
+  res.send('Successful GET request returning data on all movies');
+ });
+
+// Get data about a single movie, by title
+app.get('/movies/:title', (req, res) => {
+  res.send('Successful GET request returning data on movie title: ' + req.params.title);
+ });
+
+// Get data about a genre by title
+app.get('/movies/genres/:genre', (req, res) => {
+  res.send('Successful GET request returning data on genre: ' + req.params.genre);
+ });
+
+// Get data about a director by name
+app.get('/movies/directors/:name', (req, res) => {
+  res.send('Successful GET request returning data on director: ' + req.params.name);
+});
+
+// Post new user registration
+app.post('/users', (req, res) => {
+  res.send('Successful POST request registering new user');
+});
+
+// Put updates to user information
+app.put('/users/:username', (req, res) => {
+  res.send('Successful PUT request updating information for user: ' + req.params.username);
+});
+
+// Post new movie to user list of favorite movies
+app.post('/users/:username/movies/:movieID', (req, res) => {
+  res.send('Successful POST request adding movie with ID: ' + req.params.movieID + ' to favorite movie list of User: ' + req.params.username);
+});
+
+// Delete a movie from list of user's favorite movies
+app.delete('/users/:username/movies/:movieID', (req, res) => {
+  res.send('Successful DELETE request removing movie with ID: ' + req.params.movieID + ' from favorite movie list of User: ' + req.params.username);
+});
+
+// Deletes a user from registration database
+app.delete('/users/:username', (req, res) => {
+  res.send('Successful DELETE request removing User: ' + req.params.username + ' from database');
 });
 
 app.use((err, req, res, next) => {
