@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+  font-family: Roboto;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+h1 {
+  color: red;
+}
+
+td {
+  vertical-align: top;
+  margin-top: 3px;
+  padding-left: 7px;
+  padding-top: 7px;
+}
+
+/* tr:hover {
+  background-color: #f5f5f5;
+} */
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
