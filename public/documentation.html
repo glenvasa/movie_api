@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DOCUMENTATION</title>
+  <link rel="stylesheet" type="text/css" href="../css/styles.css">
 </head>
 
 <body>
@@ -20,6 +21,104 @@
       <p>Users will be able to sign up, update their personal information, and
         create a list of their favorite movies.</p>
   </section>
+  <section>
+    <table>
+      <tr>
+        <th>Business Logic</th>
+        <th>URL Endpoint</th>
+        <th>HTTP Method</th>
+        <th>Request Body</th>
+        <th>Request Example</th>
+        <th>Response Body</th>
+        <th>Response Example</th>
+      </tr>
+      <tr>
+        <td>Get a list of all movies</td>
+        <td>/movies</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>/movies</td>
+        <td>JSON
+        <td>{<br>"Genre": { <br>"Name": "Crime Fiction"<br>"Description": "Crime fiction is the genre of fiction that deals with crimes, their detection, criminals, and their motives"<br>}<br><br>"Director": {<br>"Name": "Martin Scorsese",<br>"Bio": "Martin Charles Scorsese is an American film director, producer, screenwriter, and actor",<br>"Born": "1942",<br>"Died": "-"<br>},<br><br>"Actors": [],<br><br>"_id": "5b6c88930",<br><br>"Title": "Casino",<br><br>
+          "Description": "A tale of greed, deception, money, power, and murder occur between two best friends: a mafia enforcer and a casino executive, compete against each other over a gambling empire, and over a fast living and fast loving socialite."<br><br>
+          "ImagePath": "casino.png"<br><br>"Featured": true<br>}</td>
+      </tr>
+      <tr>
+        <td>Get information about one specific movie by title, use %20 for spaces</td>
+        <td>/movies/:title</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>/movies/inception
+        <td>JSON</td>
+        <td>{<br>"Genre": { <br>"Name": "Crime Fiction"<br>"Description": "Crime fiction is the genre of fiction that deals with crimes, their detection, criminals, and their motives"<br>}<br><br>"Director": {<br>"Name": "Martin Scorsese",<br>"Bio": "Martin Charles Scorsese is an American film director, producer, screenwriter, and actor",<br>"Born": "1942",<br>"Died": "-"<br>},<br><br>"Actors": [],<br><br>"_id": "5b6c88930",<br><br>"Title": "Casino",<br><br>
+          "Description": "A tale of greed, deception, money, power, and murder occur between two best friends: a mafia enforcer and a casino executive, compete against each other over a gambling empire, and over a fast living and fast loving socialite."<br><br>
+          "ImagePath": "casino.png"<br><br>"Featured": true<br>}</td>
+      <tr>
+        <td>Return data about genre(description) by name/title, use %20 for spaces</td>
+        <td>/movies/genres/:genre</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>/movies/genres/crime%20fiction</td>
+        <td>JSON</td>
+        <td>{<br>"Name": "Crime Fiction",<br>"Description": "Crime fiction is the genre of fiction that deals with crimes, their detection, criminals, and their motives"<br>}</td>
+      </tr>
+      <tr>
+        <td>Return data about a director by name, use %20 for spaces</td>
+        <td>/movies/directors/:name</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>/movies/directors/martin%scorsese</td>
+        <td>JSON</td>
+        <td>{<br>"Name": "Martin Scorsese",<br>"Bio": "Martin Charles Scorsese is an American film director, producer, screenwriter, and actor",<br>"Born": "1942",<br>"Died": "-"<br>}</td>
+      </tr>
+      <tr>
+        <td>Allow new users to register</td>
+        <td>/users</td>
+        <td>POST</td>
+        <td>JSON</td>
+        <td>{<br>"Username": "gregvincent",<br> "Password": "magic1475$",<br>"Email": "gregvincent47@gmail.com",<br>"Date of Birth": "06/14/1986"<br>}</td>
+        <td>JSON</td>
+        <td>{<br>"Username": "gregvincent",<br> "Password": "magic1475$",<br>"Email": "gregvincent47@gmail.com",<br>"Date of Birth": "06/14/1986"<br>}</td>
+      </tr>
+      <tr>
+        <td>Allow users to update their user information</td>
+        <td>/users/:username</td>
+        <td>PUT</td>
+        <td>JSON</td>
+        <td>{<br>"Username": "gregvincent",<br> "Password": "magic1475$",<br>"Email": "gregvincent47@gmail.com",<br>"Date of Birth": "06/14/1986"<br>}</td>
+        <td>JSON</td>
+        <td>{<br>"Username": "gregvincent",<br> "Password": "magic1475$",<br>"Email": "gregvincent47@gmail.com",<br>"Date of Birth": "06/14/1986"<br>}</td>
+      </tr>
+      <tr>
+        <td>Allow users to add a movie to their list of favorites</td>
+        <td>/users/:username/movies/:movieID</td>
+        <td>POST</td>
+        <td>JSON</td>
+        <td>{<br>"FavoriteMovies": "5b6c88930"<br>}</td>
+        <td>JSON</td>
+        <td>{<br>    "FavoriteMovies": ["5b6c88930"],<br>}</td>
+      </tr>
+      <tr>
+        <td>Allow users to remove a movie from their list of favorites</td>
+        <td>/users/:username/movies/:movieID</td>
+        <td>DELETE</td>
+        <td>None</td>
+        <td>/users/gregvincent/movies/5b6c88930</td>
+        <td>Message
+        <td>"Casino was successfully removed from your list of favorite movies"</td>
+      </tr>
+      <tr>
+        <td>Allow existing users to deregister</td>
+        <td>/users/:username</td>
+        <td>DELETE</td>
+        <td>None</td>
+        <td>/users/gregvincent</td>
+        <td>Message</td>
+        <td>"User: gregvincent was successfully deregistered from myFlix"</td>
+      </tr>
+    </table>
+  </section>
+
 </body>
 
 </html>
