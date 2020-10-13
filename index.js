@@ -2,9 +2,13 @@ const express = require('express');
   morgan = require('morgan');
   mongoose = require('mongoose');
   Models = require('./models.js');
+  bodyParser = require('body-parser');
+  
 
 const Movies = Models.Movie;
 const Users = Models.User;
+const passport = require('passport');
+require('./passport');
 
 mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -13,6 +17,10 @@ const app = express();
 app.use(morgan('common'));
 
 app.use(express.static('public'));
+
+app.use(bodyParser.json());
+
+let auth = require('./auth')(app);
 
 let topTenMovies = [
   {
@@ -129,14 +137,14 @@ app.post('/users', (req, res) => {
       if (user) {
         return res.status(400).send(req.body.Username + ' already exists');
     } else {
-      Users.create
-    ({ Username: req.body.Username,
+      Users
+      .create({
+       Username: req.body.Username,
        Password: req.body.Password,
        Email: req.body.Email,
        Birthdate: req.body.Birthdate
-    }) .then((user) => {
-          res.status(201).json(user);
-      })
+    })
+    .then((user) => {res.status(201).json(user);})
         .catch((err) => {
           console.error(err);
           res.status(500).send('Error: ' + err);
