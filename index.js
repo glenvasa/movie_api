@@ -9,7 +9,7 @@ const Movies = Models.Movie;
 const Users = Models.User;
 
 // mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true});
-mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true}); 
+mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true});
 
 const app = express();
 
@@ -26,7 +26,7 @@ require('./passport');
 
 const cors = require('cors');
 
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234'];
 
 const { check, validationResult } = require('express-validator');
 
@@ -46,7 +46,7 @@ app.get('/', (req, res) => {
 });
 
 // Get a list of data about all movies
-app.get('/movies', passport.authenticate('jwt', { session: false}), (req, res) => {
+app.get('/movies', (req, res) => {
   Movies.find()
   .then((movies) => {
     res.status(201).json(movies);
