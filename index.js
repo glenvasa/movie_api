@@ -150,17 +150,17 @@ app.post('/users',
   });
 });
 
-//Get data about a single user by Username
-// app.get('/users/:Username', passport.authenticate('jwt', { session: false}), (req, res) => {
-//   Users.findOne({ Username: req.params.Username })
-//     .then((user) => {
-//       res.json(user);
-//   })
-//   .catch((err) => {
-//     console.error(err);
-//     res.status(500).send('Error: ' + err);
-//   });
-// });
+// Get data about a single user by Username
+app.get('/users/:Username', passport.authenticate('jwt', { session: false}), (req, res) => {
+  Users.findOne({ Username: req.params.Username })
+    .then((user) => {
+      res.json(user);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
+});
 
 // Put updates to user information
 app.put('/users/:Username',
