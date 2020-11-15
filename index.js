@@ -42,6 +42,9 @@ const { check, validationResult } = require('express-validator');
 //   }
 // }));
 
+app.use(cors());
+
+
 app.get('/', (req, res) => {
   res.send('Welcome to myFlix!');
 });
