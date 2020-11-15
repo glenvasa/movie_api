@@ -19,30 +19,29 @@ app.use(express.static('public'));
 
 app.use(bodyParser.json());
 
-let auth = require('./auth')(app);
-
 const passport = require('passport');
 require('./passport');
 
 const cors = require('cors');
 
-// let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234', 'https://myflix2020.netlify.app'];
-let allowedOrigins = ['*'];
+let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234', 'https://myflix2020.netlify.app'];
+// let allowedOrigins = ['*'];
 
 const { check, validationResult } = require('express-validator');
-//
-// app.use(cors({
-//   origin: (origin, callback) => {
-//     if(!origin) return callback(null, true);
-//     if(allowedOrigins.indexOf(origin) === -1){ // If a specific origin isn't found on the list of allowed allowedOrigins
-//       let message = "The CORS policy for this application doesn't allow access from origin " + origin;
-//       return callback(new Error(message), false);
-//     }
-//     return callback(null, true);
-//   }
-// }));
 
-app.use(cors());
+app.use(cors({
+  origin: (origin, callback) => {
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){ // If a specific origin isn't found on the list of allowed allowedOrigins
+      let message = "The CORS policy for this application doesn't allow access from origin " + origin;
+      return callback(new Error(message), false);
+    }
+    return callback(null, true);
+  }
+}));
+
+// app.use(cors());
+let auth = require('./auth')(app);
 
 app.get('/', (req, res) => {
   console.log('hello');
@@ -62,16 +61,16 @@ app.get('/movies', passport.authenticate('jwt', { session: false}), (req, res) =
 });
 
 // Get a list of Users
-// app.get('/users', passport.authenticate('jwt', { session: false}), (req, res) => {
-//   Users.find()
-//   .then((users) => {
-//     res.status(201).json(users);
-//   })
-//   .catch((err) => {
-//     console.error(err);
-//     res.status(500).send('Error: ' + err);
-//   });
-// });
+app.get('/users', passport.authenticate('jwt', { session: false}), (req, res) => {
+  Users.find()
+  .then((users) => {
+    res.status(201).json(users);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
+});
 
 // Get data about a single movie, by title
 app.get('/movies/:Title', passport.authenticate('jwt', { session: false}), (req, res) => {
