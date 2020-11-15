@@ -44,8 +44,8 @@ const { check, validationResult } = require('express-validator');
 
 app.use(cors());
 
-
 app.get('/', (req, res) => {
+  console.log('hello');
   res.send('Welcome to myFlix!');
 });
 
