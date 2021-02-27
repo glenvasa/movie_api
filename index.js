@@ -7,7 +7,6 @@ bodyParser = require("body-parser");
 const Movies = Models.Movie;
 const Users = Models.User;
 
-// mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -33,16 +32,18 @@ let allowedOrigins = [
   "https://myflix2020.netlify.app",
   "https://glenvasa.github.io",
 ];
-// let allowedOrigins = ["*"];
 
 const { check, validationResult } = require("express-validator");
 
+/**
+ * cors blocks request from origins not specifically included in
+ * allowedOrigins array
+ */
 app.use(
   cors({
     origin: (origin, callback) => {
       if (!origin) return callback(null, true);
       if (allowedOrigins.indexOf(origin) === -1) {
-        // If a specific origin isn't found on the list of allowed allowedOrigins
         let message =
           "The CORS policy for this application doesn't allow access from origin " +
           origin;
@@ -53,15 +54,27 @@ app.use(
   })
 );
 
-// app.use(cors());
+/**
+ * API calls below are explained in detail at
+ * https://myflix2020.herokuapp.com/documentation.html
+ */
+
+/**
+ * imports auth.js containing api call to login endpoint and authentication
+ */
 let auth = require("./auth")(app);
 
+/**
+ * api call to homepage
+ */
 app.get("/", (req, res) => {
   console.log("hello");
   res.send("Welcome to myFlix!");
 });
 
-// Get a list of data about all movies
+/**
+ * api call to retrieve all movies data
+ */
 app.get(
   "/movies",
   passport.authenticate("jwt", { session: false }),
@@ -77,7 +90,9 @@ app.get(
   }
 );
 
-// Get a list of Users
+/**
+ * api call to get all users data
+ */
 app.get(
   "/users",
   passport.authenticate("jwt", { session: false }),
@@ -93,7 +108,9 @@ app.get(
   }
 );
 
-// Get data about a single movie, by title
+/**
+ * api call to get data about a single movie by title
+ */
 app.get(
   "/movies/:Title",
   passport.authenticate("jwt", { session: false }),
@@ -109,7 +126,9 @@ app.get(
   }
 );
 
-// Get data about a genre by title
+/**
+ * api call to get data about a genre by movie title
+ */
 app.get(
   "/movies/Genres/:Title",
   passport.authenticate("jwt", { session: false }),
@@ -132,7 +151,9 @@ app.get(
   }
 );
 
-// Get data about a director by name
+/**
+ * api call to get data about a director by name
+ */
 app.get(
   "/movies/Directors/:Name",
   passport.authenticate("jwt", { session: false }),
@@ -160,7 +181,9 @@ app.get(
   }
 );
 
-// Post new user registration
+/**
+ * api call to create a new user registration
+ */
 app.post(
   "/users",
   [
@@ -209,7 +232,9 @@ app.post(
   }
 );
 
-// Get data about a single user by Username
+/**
+ * api call to get data about a single user by username
+ */
 app.get(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -225,7 +250,9 @@ app.get(
   }
 );
 
-// Put updates to user information
+/**
+ * api call to change user data information by username
+ */
 app.put(
   "/users/:Username",
   [
@@ -270,7 +297,9 @@ app.put(
   }
 );
 
-// Post new movie to user list of favorite movies
+/**
+ * api call to post a new movie to user's list of favorite movies
+ */
 app.post(
   "/users/:Username/Movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -291,7 +320,9 @@ app.post(
   }
 );
 
-// Delete a movie from list of user's favorite movies
+/**
+ * api call to delete a movie from user's list of favorite movies
+ */
 app.delete(
   "/users/:Username/Movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -312,7 +343,9 @@ app.delete(
   }
 );
 
-// Deletes a user from registration database
+/**
+ * api call to delete a user from user collection in database
+ */
 app.delete(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
