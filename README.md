@@ -16,6 +16,7 @@ MyFlix provides users with detailed movie data (stored in MongoDB), including mo
 - Movie and User Collections stored in MongoDB.
 - Postman utilized to test endpoints.
 - API implements user authentication/authorization and data validation logic.
+- Contains technical documentation using JSDoc.
 - Deployed using Heroku at https://myflix2020.herokuapp.com
 
 ## Client-side applications utilizing API
