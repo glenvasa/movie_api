@@ -1,7 +1,7 @@
 # MyFlix API
 
-Server-side API built for MyFlix web application. 
-MyFlix provides users with detailed movie data (stored in MongoDB), including movie description, director data (name, bio, dates of birth/death), and genre data (name and description).
+- Server-side API built for MyFlix web application. 
+- MyFlix provides users with detailed movie data (stored in MongoDB), including movie description, director data (name, bio, dates of birth/death), and genre data (name and description).
 
 
 ## API Documentation 
