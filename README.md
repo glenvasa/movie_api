@@ -12,7 +12,7 @@ MyFlix provides users with detailed movie data (stored in MongoDB), including mo
 ## Features and Technical Information
 
 - Server built with Node.js and Express.
-- API ncorporates REST architecture; URI endpoints correspond to respective data operations.
+- API incorporates REST architecture; URI endpoints correspond to respective data operations.
 - Movie and User Collections stored in MongoDB.
 - Postman utilized to test endpoints.
 - API implements user authentication/authorization and data validation logic.
