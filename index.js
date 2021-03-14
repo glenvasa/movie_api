@@ -32,7 +32,7 @@ let allowedOrigins = [
   "http://localhost:3000",
   "https://myflix2020.netlify.app",
   "https://glenvasa.github.io",
-  "https://myflix-react-2021.netlify.app/",
+  "https://myflix-react-2021.netlify.app",
 ];
 
 const { check, validationResult } = require("express-validator");
