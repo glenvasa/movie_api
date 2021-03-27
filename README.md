@@ -21,5 +21,5 @@
 
 ## Client-side applications utilizing API
 
-- MyFlix (React) https://myflix2020.netlify.app
+- MyFlix (React) https://myflix-react-2021.netlify.app
 - MyFlix (Angular) https://glenvasa.github.io/cinema-2021
